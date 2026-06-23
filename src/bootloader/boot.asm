@@ -27,6 +27,23 @@ puts:
     pop si
     ret
 
+puts_num:
+    mov al,1
+
+.loop:
+    push ax
+
+    add al,'0'
+    mov ah,0x0e
+    int 0x10
+
+    pop ax
+
+    inc al
+    cmp al,6
+    jne .loop
+
+    ret
 
 main:
     ; setting up data segments
@@ -39,8 +56,10 @@ main:
     mov sp,0x7C00
 
     ; printing "Hello, World!\n"
-    mov si,str
-    call puts
+    ; mov si,10
+    ; call puts
+
+    call puts_num
 
 .halt:
     hlt
